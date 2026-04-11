@@ -5,15 +5,19 @@ import AuthRouter from "./routes/auth.routes.js";
 import cors from "cors";
 import UserRouter from "./routes/user.routes.js";
 import cookieParser from "cookie-parser";
+import { promises as dns } from 'dns';
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
+dns.setServers(['8.8.8.8','8.8.4.4']);
+
 
 
 
 ConnectDB();
 app.use(express.json());
 app.use(cookieParser());
+
 app.use(cors({
   origin:["http://localhost:5173","http://localhost:3000","http://localhost:3001","http://localhost:3002","http://localhost:5174"],
   methods:["GET","POST","PUT","DELETE"],

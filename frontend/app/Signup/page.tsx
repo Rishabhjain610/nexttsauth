@@ -78,80 +78,80 @@ const SignupPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex justify-center items-center px-4">
-      <div className="w-full max-w-md border border-gray-200 rounded-2xl p-8 shadow-sm">
+    <div className="min-h-screen bg-white dark:bg-[#0a0a0a] flex justify-center items-center px-4 transition-colors duration-300">
+      <div className="w-full max-w-md border border-slate-200 dark:border-slate-800 rounded-2xl p-8 shadow-sm bg-white dark:bg-slate-900/50">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">Create Account</h1>
-          <p className="text-gray-500 text-sm mt-1">Sign up to get started</p>
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Create Account</h1>
+          <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">Sign up to get started</p>
         </div>
 
         {error && (
-          <div className="mb-6 p-3 bg-red-50 border border-red-200 text-red-700 text-xs rounded-lg">
+          <div className="mb-6 p-3 bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 text-red-700 dark:text-red-400 text-xs rounded-lg">
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4 mb-6">
-          <div className="relative">
-            <User className="absolute left-3 top-3.5 w-4 h-4 text-black" />
+          <div className="relative group">
+            <User className="absolute left-3 top-3.5 w-4 h-4 text-slate-400 group-focus-within:text-[#4A90E2] transition-colors" />
             <input
               type="text"
               placeholder="Full name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none text-black focus:border-black transition"
+              className="w-full pl-10 pr-4 py-3 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-xl text-sm focus:outline-none text-slate-900 dark:text-white focus:border-[#4A90E2] dark:focus:border-[#4A90E2] transition"
             />
           </div>
 
-          <div className="relative">
-            <Mail className="absolute left-3 top-3.5 w-4 h-4 text-black" />
+          <div className="relative group">
+            <Mail className="absolute left-3 top-3.5 w-4 h-4 text-slate-400 group-focus-within:text-[#4A90E2] transition-colors" />
             <input
               type="email"
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none text-black focus:border-black transition"
+              className="w-full pl-10 pr-4 py-3 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-xl text-sm focus:outline-none text-slate-900 dark:text-white focus:border-[#4A90E2] dark:focus:border-[#4A90E2] transition"
             />
           </div>
 
-          <div className="relative">
-            <Lock className="absolute left-3 top-3.5 w-4 h-4 text-black" />
+          <div className="relative group">
+            <Lock className="absolute left-3 top-3.5 w-4 h-4 text-slate-400 group-focus-within:text-[#4A90E2] transition-colors" />
             <input
               type="password"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none text-black focus:border-black transition"
+              className="w-full pl-10 pr-4 py-3 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-xl text-sm focus:outline-none text-slate-900 dark:text-white focus:border-[#4A90E2] dark:focus:border-[#4A90E2] transition"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 bg-black text-white font-medium rounded-lg hover:bg-gray-900 transition disabled:opacity-50 text-sm"
+            className="w-full py-3 bg-slate-900 dark:bg-white text-white dark:text-black font-bold rounded-xl hover:opacity-90 transition disabled:opacity-50 text-sm shadow-lg shadow-black/10 dark:shadow-white/5 active:scale-[0.98]"
           >
             {loading ? "Creating..." : "Create Account"}
           </button>
         </form>
 
         <div className="flex items-center gap-3 mb-6">
-          <div className="flex-1 h-px bg-gray-200"></div>
-          <span className="text-xs text-gray-400">OR</span>
-          <div className="flex-1 h-px bg-gray-200"></div>
+          <div className="flex-1 h-px bg-slate-100 dark:bg-slate-800"></div>
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">OR</span>
+          <div className="flex-1 h-px bg-slate-100 dark:bg-slate-800"></div>
         </div>
 
         <button
           onClick={handleGoogleAuth}
           disabled={loading}
-          className="w-full py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 text-black transition flex items-center justify-center gap-2 text-sm font-medium"
+          className="w-full py-3 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-900 dark:text-white transition flex items-center justify-center gap-3 text-sm font-bold shadow-sm active:scale-[0.98]"
         >
-          <FcGoogle className="w-4 h-4" />
+          <FcGoogle className="w-5 h-5" />
           {loading ? "Signing up..." : "Sign up with Google"}
         </button>
 
-        <p className="mt-6 text-center text-xs text-gray-600">
+        <p className="mt-8 text-center text-xs text-slate-500 dark:text-slate-400 font-medium">
           Already have an account?{" "}
-          <Link href="/Login" className="text-black font-semibold hover:underline">
+          <Link href="/Login" className="text-[#4A90E2] font-bold hover:underline">
             Sign in
           </Link>
         </p>

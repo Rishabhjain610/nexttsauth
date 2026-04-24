@@ -1,12 +1,10 @@
+"use client";
+import React from 'react';
+
 export default function AboutPage() {
   return (
-    <main className="min-h-screen flex items-center justify-center p-8">
-      <div className="max-w-3xl text-center">
-        <h1 className="text-4xl font-extrabold mb-4">About</h1>
-        <p className="text-lg text-gray-600 dark:text-gray-300">
-          This is the About page. Describe your project here.
-        </p>
-      </div>
+    <main className="min-h-screen bg-white dark:bg-[#0a0a0a] flex items-center justify-center pt-20">
+      <h1 className="text-3xl font-bold text-slate-900 dark:text-white">About Page</h1>
     </main>
   );
 }

@@ -12,7 +12,7 @@ import { createOllama } from "ai-sdk-ollama";
 import { tavily } from "@tavily/core";
 import { z } from "zod";
 const tvly = tavily({
-  apiKey: process.env.TAVILY_API_KEY,
+  apiKey: process.env.NEXT_PUBLIC_TAVILY_API_KEY,
 });
 function cleanContent(content: string) {
   // Simple content cleaner (customize as needed)

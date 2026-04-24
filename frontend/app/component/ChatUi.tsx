@@ -12,7 +12,7 @@ import { Square, X, Trash2 } from "lucide-react";
 
 function DoctorCard({ places, doctorType, location }: any) {
   return (
-    <div className="bg-slate-800 border border-slate-700 rounded-2xl p-4 space-y-4 shadow-xl">
+    <div className="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 space-y-4 shadow-xl">
       <div className="flex items-center gap-3">
         <div className="w-10 h-10 rounded-full bg-[#00ff87]/20 flex items-center justify-center text-xl">
           👨‍⚕️
@@ -94,7 +94,7 @@ function SummaryCard({ summary, itemCount, type }: any) {
 
 function LoadingCard({ message }: { message: string }) {
   return (
-    <div className="bg-slate-800 border border-slate-700 rounded-xl p-3 flex items-center gap-3 shadow-lg">
+    <div className="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-3 flex items-center gap-3 shadow-lg">
       <div className="relative">
         <div className="animate-spin rounded-full h-5 w-5 border-2 border-[#00ff87] border-t-transparent" />
         <div className="absolute inset-0 rounded-full bg-[#00ff87]/20 blur-sm animate-pulse" />
@@ -125,7 +125,7 @@ function MessageBubble({ message }: any) {
         className={`relative group max-w-[85%] sm:max-w-[75%] ${
           isUser
             ? "bg-[#00ff87] text-black rounded-2xl rounded-tr-sm font-medium"
-            : "bg-slate-800 border border-slate-700 text-gray-100 rounded-2xl rounded-tl-sm"
+            : "bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-gray-100 rounded-2xl rounded-tl-sm"
         } px-4 py-3 shadow-lg overflow-hidden`}
       >
 
@@ -259,7 +259,7 @@ export default function ChatUi() {
         whileHover={{ scale: 1.1, rotate: 5 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 w-12 h-12 sm:w-14 sm:h-14 bg-[#00ff87] rounded-full text-black shadow-2xl flex items-center justify-center z-50 transition-all duration-300 hover:scale-110 active:scale-95"
+        className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 w-12 h-12 sm:w-14 sm:h-14 bg-slate-900 dark:bg-white text-white dark:text-black rounded-full shadow-2xl flex items-center justify-center z-50 transition-all duration-300 hover:scale-110 active:scale-95"
       >
 
         <AnimatePresence mode="wait">
@@ -295,7 +295,7 @@ export default function ChatUi() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
+              className="fixed inset-0 bg-black/20 dark:bg-black/40 backdrop-blur-sm z-40"
             />
 
             <motion.div
@@ -304,23 +304,23 @@ export default function ChatUi() {
               exit={{ opacity: 0, y: 20, scale: 0.95 }}
               className="fixed bottom-20 right-4 sm:bottom-24 sm:right-8 z-50 flex items-end justify-end w-[calc(100%-2rem)] sm:w-[380px]"
             >
-              <div className="w-full h-[500px] sm:h-[600px] bg-slate-900 border border-slate-800 rounded-2xl sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden relative">
+              <div className="w-full h-[500px] sm:h-[600px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden relative">
                 {/* Decorative Elements */}
 
 
                 {/* Header */}
-                <div className="px-6 py-4 flex items-center justify-between shrink-0 bg-slate-800/50 border-b border-slate-800">
+                <div className="px-6 py-4 flex items-center justify-between shrink-0 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-[#00ff87] rounded-xl flex items-center justify-center text-black shadow-lg">
+                    <div className="w-10 h-10 bg-slate-100 dark:bg-slate-800 rounded-xl flex items-center justify-center text-slate-900 dark:text-white shadow-sm">
                       <IoChatbubbles size={20} />
                     </div>
                     <div>
-                      <h3 className="font-bold text-white tracking-tight">
-                        MedScan AI
+                      <h3 className="font-bold text-slate-900 dark:text-white tracking-tight">
+                        Chat
                       </h3>
                       <div className="flex items-center gap-1.5 mt-0.5">
                         <div className="w-2 h-2 rounded-full bg-[#00ff87] animate-pulse" />
-                        <p className="text-[10px] font-medium text-gray-400">
+                        <p className="text-[10px] font-medium text-slate-500 dark:text-gray-400">
                           Online
                         </p>
                       </div>
@@ -339,13 +339,13 @@ export default function ChatUi() {
                 <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-6 relative z-10 scrollbar-hide">
                   {messages.length === 0 ? (
                     <div className="flex flex-col items-center justify-center h-full text-center p-6">
-                      <div className="w-16 h-16 bg-slate-800 rounded-2xl flex items-center justify-center mb-6">
+                      <div className="w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center justify-center mb-6">
                         <IoChatbubbles size={32} className="text-[#00ff87]" />
                       </div>
-                      <h3 className="text-xl font-bold text-white mb-2">
+                      <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
                         How can I help?
                       </h3>
-                      <p className="text-sm text-gray-400 mb-8">
+                      <p className="text-sm text-slate-500 dark:text-gray-400 mb-8">
                         Ask about symptoms or find specialists.
                       </p>
                       <div className="w-full space-y-2">
@@ -357,7 +357,7 @@ export default function ChatUi() {
                           <button
                             key={i}
                             onClick={() => setInput(text)}
-                            className="w-full px-4 py-3 bg-slate-800 hover:bg-slate-700 rounded-xl text-sm text-gray-300 transition-colors text-left"
+                            className="w-full px-4 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl text-sm text-slate-700 dark:text-gray-300 transition-colors text-left font-medium"
                           >
                             {text}
                           </button>
@@ -378,9 +378,9 @@ export default function ChatUi() {
                       animate={{ opacity: 1, x: 0 }}
                       className="flex justify-start px-4"
                     >
-                      <div className="bg-slate-800 border border-slate-700 px-4 py-2 rounded-xl flex items-center gap-3 shadow-xl">
+                      <div className="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-2 rounded-xl flex items-center gap-3 shadow-xl">
                         <div className="animate-spin rounded-full h-3 w-3 border-2 border-[#00ff87] border-t-transparent" />
-                        <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Processing</span>
+                        <span className="text-[10px] text-slate-500 dark:text-gray-400 font-bold uppercase tracking-wider">Processing</span>
                         <button
                           onClick={stop}
                           className="ml-4 px-3 py-1 bg-red-500/10 border border-red-500/20 text-red-400 rounded-lg text-[10px] font-black hover:bg-red-500/20 uppercase transition-all"
@@ -395,7 +395,7 @@ export default function ChatUi() {
                 </div>
 
                 {/* Input Area */}
-                <div className="p-4 bg-slate-800/50 border-t border-slate-800">
+                <div className="p-4 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-200 dark:border-slate-800">
                   <form 
                     className="flex items-center gap-2" 
                     onSubmit={onSubmit}
@@ -406,12 +406,12 @@ export default function ChatUi() {
                       onChange={(e) => setInput(e.target.value)}
                       disabled={isLoading}
                       placeholder="Type a message..."
-                      className="flex-1 h-12 px-4 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-gray-500 focus:outline-none focus:border-[#00ff87] transition-all text-sm"
+                      className="flex-1 h-12 px-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 focus:outline-none focus:border-[#00ff87] transition-all text-sm shadow-inner"
                     />
                     <button
                       type="submit"
                       disabled={sendButtonDisabled}
-                      className="w-12 h-12 bg-[#00ff87] text-black rounded-xl flex items-center justify-center disabled:opacity-50 disabled:grayscale transition-all shadow-lg shadow-[#00ff87]/20"
+                      className="w-12 h-12 bg-slate-900 dark:bg-white text-white dark:text-black rounded-xl flex items-center justify-center disabled:opacity-50 transition-all shadow-lg"
                     >
                       <IoSend size={20} />
                     </button>

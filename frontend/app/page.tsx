@@ -1,9 +1,10 @@
-import React from 'react'
+"use client";
+import React from 'react';
 
-const page = () => {
+export default function HomePage() {
   return (
-    <div>page</div>
-  )
+    <main className="min-h-screen bg-white dark:bg-[#0a0a0a] flex items-center justify-center pt-20">
+      <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Home Page</h1>
+    </main>
+  );
 }
-
-export default page

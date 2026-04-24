@@ -7,15 +7,11 @@ import { cn } from "../../lib/utils";
 import { useTheme } from "next-themes";
 import { HiSun, HiMoon } from "react-icons/hi";
 import LoginButton from "./LoginButton";
+import Language from "./Language";
 import {
   IoHomeOutline,
   IoPerson,
-  IoRocketOutline,
-  IoCode,
   IoMailOutline,
-  IoBriefcaseOutline,
-  IoStatsChartOutline,
-  IoTrophy,
 } from "react-icons/io5";
 
 const Navbar = () => {
@@ -49,16 +45,7 @@ const Navbar = () => {
       observerOptions,
     );
 
-    const sections = [
-      "home",
-      "about",
-      "skills",
-      "projects",
-      "work",
-      "stats",
-      "achievements",
-      "contact",
-    ];
+    const sections = ["home", "about", "contact"];
     sections.forEach((id) => {
       const element = document.getElementById(id);
       if (element) observer.observe(element);
@@ -68,13 +55,11 @@ const Navbar = () => {
   }, []);
 
   const isLinkActive = (href: string) => {
-    // Prefer pathname match for page links
     if (href.startsWith("/")) return pathname === href;
     return activeSection === href.replace("#", "");
   };
 
   const currentTheme = mounted ? resolvedTheme : "light";
-  const logoSrc = currentTheme === "dark" ? "/LogoDark.png" : "/LogoLight.png";
 
   const navLinks = [
     { name: "Home", href: "/", icon: <IoHomeOutline size={18} /> },
@@ -89,32 +74,24 @@ const Navbar = () => {
           "fixed z-50 w-[95%] top-5 rounded-2xl -translate-x-1/2 left-1/2 border-2 backdrop-blur-xl transition-all duration-300",
           "bg-[#F4F4F4]/50 dark:bg-[#121212]/70",
           "border-[#2E2E2E]/40 dark:border-[#E0E0E0]/30 hover:border-[#4A90E2]/60 dark:hover:border-[#4A90E2]/50 hover:shadow-lg hover:shadow-[#4A90E2]/10",
-          "md:top-3 md:left-1/2 md:w-[70%] md:-translate-x-1/2 lg:rounded-full",
+          "md:top-3 md:left-1/2 md:w-[80%] md:-translate-x-1/2 lg:rounded-full",
         )}
       >
         <div className="flex h-16 items-center justify-between px-4 md:px-8">
           <Link
             href="/"
-            className="flex items-center gap-2 hover:opacity-80 transition-opacity duration-300 flex-shrink-0"
+            className="text-xl font-bold text-[#2E2E2E] dark:text-[#E0E0E0] hover:opacity-80 transition-opacity flex-shrink-0"
           >
-            <Image
-              src={logoSrc}
-              alt="Website Logo"
-              width={48}
-              height={48}
-              priority
-              fetchPriority="high"
-              className="transition-opacity duration-300"
-            />
+            Logo
           </Link>
 
-          <div className="hidden items-center gap-1 lg:flex">
+          <div className="hidden items-center gap-1 md:flex">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
                 className={cn(
-                  "flex items-center gap-1.5 rounded-full px-3 py-2 text-xs font-medium transition-all duration-300 border h-10 whitespace-nowrap",
+                  "flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-medium transition-all duration-300 border h-10 whitespace-nowrap",
                   "text-[#2E2E2E] dark:text-[#E0E0E0]",
                   isLinkActive(link.href)
                     ? "bg-[#4A90E2]/20 text-[#4A90E2] border-[#4A90E2]/50 shadow-md shadow-[#4A90E2]/15"
@@ -122,24 +99,24 @@ const Navbar = () => {
                 )}
               >
                 <span className="flex-shrink-0">{link.icon}</span>
-                <span className="hidden xl:inline">{link.name}</span>
+                <span>{link.name}</span>
               </Link>
             ))}
           </div>
 
           <div className="flex items-center gap-2">
             <div className="hidden md:block">
+              <Language />
+            </div>
+            <div className="hidden md:block">
               <LoginButton />
             </div>
-            {/* Theme Toggle Button with Smooth Transition */}
             <button
               suppressHydrationWarning
               aria-label="Toggle theme"
-              onClick={() =>
-                setTheme(currentTheme === "dark" ? "light" : "dark")
-              }
+              onClick={() => setTheme(currentTheme === "dark" ? "light" : "dark")}
               className={cn(
-                "rounded-full p-2 transition-all duration-500 ease-in-out flex-shrink-0",
+                "rounded-full p-2 transition-all duration-300 flex-shrink-0",
                 "text-[#2E2E2E] dark:text-[#E0E0E0]",
                 "hover:bg-[#4A90E2]/15 hover:text-[#4A90E2] hover:scale-110",
                 "border border-transparent hover:border-[#4A90E2]/40 hover:shadow-md hover:shadow-[#4A90E2]/10",
@@ -148,53 +125,27 @@ const Navbar = () => {
             >
               <div className="relative w-[18px] h-[18px] flex items-center justify-center">
                 {currentTheme === "dark" ? (
-                  <HiSun
-                    size={18}
-                    className="absolute transition-all duration-500 ease-in-out rotate-0 opacity-100"
-                  />
+                  <HiSun size={18} className="transition-all" />
                 ) : (
-                  <HiMoon
-                    size={18}
-                    className="absolute transition-all duration-500 ease-in-out opacity-100"
-                  />
+                  <HiMoon size={18} className="transition-all" />
                 )}
               </div>
             </button>
 
-            <div className="flex lg:hidden">
+            <div className="flex md:hidden">
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                type="button"
-                suppressHydrationWarning
                 className={cn(
                   "relative z-50 inline-flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 flex-shrink-0",
                   "text-[#2E2E2E] dark:text-[#E0E0E0]",
                   "hover:bg-[#4A90E2]/15 hover:text-[#4A90E2] hover:scale-105",
                   "border border-transparent hover:border-[#4A90E2]/40 hover:shadow-md hover:shadow-[#4A90E2]/10",
                 )}
-                aria-controls="mobile-menu"
-                aria-expanded={isOpen}
               >
-                <span className="sr-only">Open main menu</span>
                 <div className="relative h-5 w-5">
-                  <span
-                    className={cn(
-                      "absolute block h-0.5 w-5 transform bg-current transition duration-300 ease-in-out top-1/2 -translate-y-1/2",
-                      isOpen ? "rotate-45" : "-translate-y-1.5",
-                    )}
-                  />
-                  <span
-                    className={cn(
-                      "absolute block h-0.5 w-5 transform bg-current transition duration-300 ease-in-out top-1/2 -translate-y-1/2",
-                      isOpen && "opacity-0",
-                    )}
-                  />
-                  <span
-                    className={cn(
-                      "absolute block h-0.5 w-5 transform bg-current transition duration-300 ease-in-out top-1/2 -translate-y-1/2",
-                      isOpen ? "-rotate-45" : "translate-y-1.5",
-                    )}
-                  />
+                  <span className={cn("absolute block h-0.5 w-5 bg-current transition top-1/2 -translate-y-1/2", isOpen ? "rotate-45" : "-translate-y-1.5")} />
+                  <span className={cn("absolute block h-0.5 w-5 bg-current transition top-1/2 -translate-y-1/2", isOpen && "opacity-0")} />
+                  <span className={cn("absolute block h-0.5 w-5 bg-current transition top-1/2 -translate-y-1/2", isOpen ? "-rotate-45" : "translate-y-1.5")} />
                 </div>
               </button>
             </div>
@@ -204,7 +155,7 @@ const Navbar = () => {
 
       <div
         className={cn(
-          "fixed inset-0 z-40 md:hidden transition-opacity duration-300 bg-black/20",
+          "fixed inset-0 z-40 md:hidden transition-opacity bg-black/20 backdrop-blur-sm",
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none",
         )}
         onClick={() => setIsOpen(false)}
@@ -212,12 +163,10 @@ const Navbar = () => {
 
       <div
         className={cn(
-          "fixed left-1/2 top-28 z-50 w-[95%] -translate-x-1/2 rounded-2xl border-2 backdrop-blur-xl transition-all duration-300 ease-out lg:hidden",
-          "bg-[#F4F4F4]/60 dark:bg-[#121212]/80",
-          "border-[#2E2E2E]/40 dark:border-[#E0E0E0]/30 shadow-lg shadow-black/10 dark:shadow-black/30",
-          isOpen
-            ? "opacity-100 translate-y-0 scale-100"
-            : "opacity-0 -translate-y-4 scale-95 pointer-events-none",
+          "fixed left-1/2 top-28 z-50 w-[95%] -translate-x-1/2 rounded-2xl border-2 backdrop-blur-xl transition-all duration-300 ease-out md:hidden",
+          "bg-[#F4F4F4]/80 dark:bg-[#121212]/80",
+          "border-[#2E2E2E]/40 dark:border-[#E0E0E0]/30 shadow-2xl",
+          isOpen ? "opacity-100 translate-y-0 scale-100" : "opacity-0 -translate-y-4 scale-95 pointer-events-none",
         )}
       >
         <div className="p-5 max-h-[70vh] overflow-y-auto">
@@ -233,9 +182,7 @@ const Navbar = () => {
                   isLinkActive(link.href)
                     ? "bg-[#4A90E2]/20 text-[#4A90E2] border-[#4A90E2]/50 shadow-md shadow-[#4A90E2]/20"
                     : "border-transparent hover:bg-[#4A90E2]/15 hover:text-[#4A90E2] hover:border-[#4A90E2]/40 hover:shadow-md hover:shadow-[#4A90E2]/15",
-                  isOpen
-                    ? "translate-x-0 opacity-100"
-                    : "translate-x-4 opacity-0",
+                  isOpen ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0",
                 )}
                 style={{
                   transitionDelay: isOpen ? `${index * 50}ms` : "0ms",
@@ -257,6 +204,24 @@ const Navbar = () => {
               </Link>
             ))}
           </nav>
+
+          <div 
+            className={cn(
+              "mt-6 flex flex-col gap-4 border-t border-[#2E2E2E]/20 dark:border-[#E0E0E0]/20 pt-6 transition-all duration-200",
+              isOpen ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
+            )}
+            style={{
+              transitionDelay: isOpen ? `${navLinks.length * 50 + 50}ms` : "0ms",
+            }}
+          >
+            <div className="flex items-center justify-between px-2">
+              <span className="text-xs font-bold text-[#2E2E2E]/60 dark:text-[#E0E0E0]/60 uppercase tracking-widest">Language</span>
+              <Language />
+            </div>
+            <div className="px-2">
+              <LoginButton />
+            </div>
+          </div>
         </div>
       </div>
     </>

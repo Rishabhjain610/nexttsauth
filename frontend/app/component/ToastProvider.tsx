@@ -1,20 +1,29 @@
 "use client";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 const ToastProvider = () => {
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   return (
     <ToastContainer
-      position="top-left"
-      hideProgressBar={true}
-      autoClose={1000}
-      theme="dark"
+      position="top-right"
+      hideProgressBar={false}
+      autoClose={3000}
+      theme={resolvedTheme as "light" | "dark"}
       toastStyle={{
-        background: "#18181b",
-        color: "#fafafa",
-        borderRadius: "10px",
+        borderRadius: "12px",
         fontWeight: "500",
-        boxShadow: "0 4px 24px rgba(0,0,0,0.5)",
+        fontSize: "14px",
       }}
     />
   );

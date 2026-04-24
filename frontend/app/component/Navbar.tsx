@@ -74,7 +74,7 @@ const Navbar = () => {
           "fixed z-50 w-[95%] top-5 rounded-2xl -translate-x-1/2 left-1/2 border-2 backdrop-blur-xl transition-all duration-300",
           "bg-[#F4F4F4]/50 dark:bg-[#121212]/70",
           "border-[#2E2E2E]/40 dark:border-[#E0E0E0]/30 hover:border-[#4A90E2]/60 dark:hover:border-[#4A90E2]/50 hover:shadow-lg hover:shadow-[#4A90E2]/10",
-          "md:top-3 md:left-1/2 md:w-[80%] md:-translate-x-1/2 lg:rounded-full",
+          "lg:top-3 lg:left-1/2 lg:w-[80%] lg:-translate-x-1/2 lg:rounded-full",
         )}
       >
         <div className="flex h-16 items-center justify-between px-4 md:px-8">
@@ -85,7 +85,7 @@ const Navbar = () => {
             Logo
           </Link>
 
-          <div className="hidden items-center gap-1 md:flex">
+          <div className="hidden items-center gap-1 lg:flex">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
@@ -105,10 +105,10 @@ const Navbar = () => {
           </div>
 
           <div className="flex items-center gap-2">
-            <div className="hidden md:block">
+            <div className="hidden lg:block">
               <Language />
             </div>
-            <div className="hidden md:block">
+            <div className="hidden lg:block">
               <LoginButton />
             </div>
             <button
@@ -132,7 +132,7 @@ const Navbar = () => {
               </div>
             </button>
 
-            <div className="flex md:hidden">
+            <div className="flex lg:hidden">
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 className={cn(
@@ -155,7 +155,7 @@ const Navbar = () => {
 
       <div
         className={cn(
-          "fixed inset-0 z-40 md:hidden transition-opacity bg-black/20 backdrop-blur-sm",
+          "fixed inset-0 z-40 lg:hidden transition-opacity bg-black/20 backdrop-blur-sm",
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none",
         )}
         onClick={() => setIsOpen(false)}
@@ -163,7 +163,7 @@ const Navbar = () => {
 
       <div
         className={cn(
-          "fixed left-1/2 top-28 z-50 w-[95%] -translate-x-1/2 rounded-2xl border-2 backdrop-blur-xl transition-all duration-300 ease-out md:hidden",
+          "fixed left-1/2 top-28 z-50 w-[95%] -translate-x-1/2 rounded-2xl border-2 backdrop-blur-xl transition-all duration-300 ease-out lg:hidden",
           "bg-[#F4F4F4]/80 dark:bg-[#121212]/80",
           "border-[#2E2E2E]/40 dark:border-[#E0E0E0]/30 shadow-2xl",
           isOpen ? "opacity-100 translate-y-0 scale-100" : "opacity-0 -translate-y-4 scale-95 pointer-events-none",

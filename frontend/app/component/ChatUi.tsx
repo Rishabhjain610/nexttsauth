@@ -12,29 +12,29 @@ import { Square, Upload, X, Trash2 } from "lucide-react";
 
 function DoctorCard({ places, doctorType, location }: any) {
   return (
-    <div className="bg-[#00ff87]/5 border-l-4 border-[#00ff87] rounded-xl p-6 space-y-4 backdrop-blur-md border border-[#00ff87]/20 shadow-[0_0_20px_rgba(0,255,135,0.1)]">
-      <div className="flex items-center gap-3">
-        <span className="text-xl">👨‍⚕️</span>
-        <h3 className="font-black text-[#00ff87] uppercase tracking-wider text-sm">
-          {doctorType} Specialists in {location}
+    <div className="bg-[#00ff87]/10 border border-[#00ff87]/30 rounded-lg p-4 space-y-3">
+      <div className="flex items-center gap-2">
+        <span className="text-lg">👨‍⚕️</span>
+        <h3 className="font-semibold text-[#00ff87] text-sm">
+          {doctorType} in {location}
         </h3>
       </div>
-      <div className="space-y-3">
+      <div className="space-y-2">
         {Array.isArray(places) &&
           places.map((place: any, idx: number) => (
             <div
               key={idx}
-              className="bg-white/5 p-4 rounded-xl border border-white/10 hover:border-[#00ff87]/40 hover:bg-[#00ff87]/5 transition-all duration-300 group"
+              className="bg-slate-800/50 p-3 rounded-lg border border-slate-700/50 hover:border-[#00ff87]/40 transition-colors group"
             >
               <a
                 href={place.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white font-bold hover:text-[#00ff87] block text-sm mb-2 transition-colors"
+                className="text-white font-medium hover:text-[#00ff87] text-sm mb-1 block transition-colors"
               >
-                {idx + 1}. {place.name}
+                {place.name}
               </a>
-              <p className="text-xs text-gray-400 leading-relaxed line-clamp-2 italic">
+              <p className="text-xs text-gray-400 line-clamp-2">
                 {place.description}
               </p>
             </div>
@@ -45,37 +45,33 @@ function DoctorCard({ places, doctorType, location }: any) {
 }
 
 function SummaryCard({ summary, itemCount, type }: any) {
-  const config = ({
-    doctor: {
-      bg: "bg-[#00ff87]/10",
-      border: "border-[#00ff87]/30",
-      text: "text-[#00ff87]",
-      icon: "✨",
-    },
-    disease: {
-      bg: "bg-[#00e5ff]/10",
-      border: "border-[#00e5ff]/30",
-      text: "text-[#00e5ff]",
-      icon: "🎯",
-    },
-  } as Record<string, any>)[type] || {
-    bg: "bg-white/5",
-    border: "border-white/20",
+  const config = (
+    {
+      doctor: {
+        bg: "bg-[#00ff87]/10",
+        border: "border-[#00ff87]/30",
+        text: "text-[#00ff87]",
+      },
+      disease: {
+        bg: "bg-[#00e5ff]/10",
+        border: "border-[#00e5ff]/30",
+        text: "text-[#00e5ff]",
+      },
+    } as Record<string, any>
+  )[type] || {
+    bg: "bg-slate-800/50",
+    border: "border-slate-700/50",
     text: "text-white",
-    icon: "📝",
   };
 
   return (
     <div
-      className={`${config.bg} border ${config.border} rounded-xl p-5 space-y-3 mt-4 backdrop-blur-md relative overflow-hidden`}
+      className={`${config.bg} border ${config.border} rounded-lg p-3 sm:p-4 space-y-2`}
     >
-      <div className="absolute top-0 right-0 p-2 opacity-10">
-        <span className="text-2xl">{config.icon}</span>
-      </div>
-      <div className="flex items-center gap-2">
-        <h3 className={`font-black text-[10px] uppercase tracking-[0.2em] ${config.text}`}>Analytical Summary ({itemCount})</h3>
-      </div>
-      <p className="text-xs text-gray-300 leading-relaxed whitespace-pre-wrap italic">
+      <h3 className={`font-semibold text-xs sm:text-sm ${config.text}`}>
+        Summary ({itemCount})
+      </h3>
+      <p className="text-xs text-gray-300 leading-relaxed whitespace-pre-wrap">
         {summary}
       </p>
     </div>
@@ -84,19 +80,17 @@ function SummaryCard({ summary, itemCount, type }: any) {
 
 function LoadingCard({ message }: { message: string }) {
   return (
-    <div className="bg-white/5 border border-white/10 rounded-xl p-4 flex items-center gap-3 backdrop-blur-sm">
-      <div className="animate-spin rounded-full h-4 w-4 border-2 border-[#00ff87] border-t-transparent shadow-[0_0_10px_rgba(0,255,135,0.5)]" />
-      <span className="text-xs text-[#00ff87] font-black uppercase tracking-widest animate-pulse">{message}</span>
+    <div className="bg-slate-800/50 border border-slate-700/50 rounded-lg p-3 flex items-center gap-2">
+      <div className="animate-spin rounded-full h-3 w-3 border-2 border-[#00ff87] border-t-transparent" />
+      <span className="text-xs text-[#00ff87] font-semibold">{message}</span>
     </div>
   );
 }
 
 function ErrorCard({ message }: { message: string }) {
   return (
-    <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-4 flex items-center gap-3 backdrop-blur-sm">
-      <div className="text-xs text-red-500 font-bold uppercase tracking-widest">
-        <span className="mr-2">⚠️</span> System Error: {message}
-      </div>
+    <div className="bg-red-500/15 border border-red-500/30 rounded-lg p-3 flex items-center gap-2">
+      <span className="text-xs text-red-400 font-semibold">⚠️ {message}</span>
     </div>
   );
 }
@@ -105,93 +99,95 @@ function MessageBubble({ message }: any) {
   const isUser = message.role === "user";
   return (
     <motion.div
-      initial={{ opacity: 0, x: isUser ? 20 : -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      className={`flex ${isUser ? "justify-end" : "justify-start"} px-2`}
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      className={`flex ${isUser ? "justify-end" : "justify-start"} w-full px-2 sm:px-4`}
     >
       <div
-        className={`max-w-[85%] rounded-2xl px-5 py-4 ${isUser
-          ? "bg-[#00ff87]/10 border border-[#00ff87]/30 text-white rounded-br-none shadow-[0_0_20px_rgba(0,255,135,0.05)]"
-          : "bg-white/5 border border-white/10 text-gray-200 rounded-bl-none backdrop-blur-md"
-          }`}
+        className={`rounded-lg px-4 py-3 sm:px-5 sm:py-4 max-w-xs sm:max-w-sm md:max-w-md ${
+          isUser
+            ? "bg-gradient-to-br from-[#00ff87]/20 to-[#00ff87]/10 border border-[#00ff87]/40 text-white rounded-br-sm"
+            : "bg-slate-800/60 border border-slate-700/50 text-gray-100 rounded-bl-sm"
+        }`}
       >
-        <div className="space-y-4">
+        <div className="space-y-2 sm:space-y-3">
           {message.parts
             ? message.parts.map((part: any, index: number) => {
-              switch (part.type) {
-                case "text":
-                  return (
-                    <div
-                      key={`${message.id}-part-${index}`}
-                      className="whitespace-pre-wrap text-[13px] leading-relaxed font-medium"
-                    >
-                      {part.text}
-                    </div>
-                  );
+                switch (part.type) {
+                  case "text":
+                    return (
+                      <div
+                        key={`${message.id}-part-${index}`}
+                        className="text-sm sm:text-base leading-relaxed font-normal whitespace-pre-wrap break-words"
+                      >
+                        {part.text}
+                      </div>
+                    );
 
-                case "tool-getDoctor":
-                  switch (part.state) {
-                    case "input-streaming":
-                      return (
-                        <LoadingCard
-                          key={`${message.id}-getDoctor-${index}`}
-                          message="Locating Medical Personnel..."
-                        />
-                      );
-                    case "input-available":
-                      return (
-                        <div
-                          key={`${message.id}-getDoctor-${index}`}
-                          className="text-[10px] bg-[#00ff87]/5 border border-[#00ff87]/20 px-3 py-2 rounded-lg font-black uppercase tracking-widest text-[#00ff87]"
-                        >
-                          👨‍⚕️ Targeting: {part.input.doctorType} in {part.input.location}
-                        </div>
-                      );
-                    case "output-available": {
-                      const places = Array.isArray(part.output.places)
-                        ? part.output.places
-                        : part.output;
-                      const summary = part.output.combinedSummary;
-                      return (
-                        <div
-                          key={`${message.id}-getDoctor-${index}`}
-                          className="space-y-4"
-                        >
-                          <DoctorCard
-                            places={places}
-                            doctorType={part.input.doctorType}
-                            location={part.input.location}
+                  case "tool-getDoctor":
+                    switch (part.state) {
+                      case "input-streaming":
+                        return (
+                          <LoadingCard
+                            key={`${message.id}-getDoctor-${index}`}
+                            message="Finding specialists..."
                           />
-                          {summary && (
-                            <SummaryCard
-                              summary={summary}
-                              itemCount={places.length}
-                              type="doctor"
+                        );
+                      case "input-available":
+                        return (
+                          <div
+                            key={`${message.id}-getDoctor-${index}`}
+                            className="text-xs bg-[#00ff87]/10 border border-[#00ff87]/30 px-3 py-2 sm:px-4 sm:py-3 rounded-lg font-semibold text-[#00ff87]"
+                          >
+                            👨‍⚕️ Searching for {part.input.doctorType} in{" "}
+                            {part.input.location}
+                          </div>
+                        );
+                      case "output-available": {
+                        const places = Array.isArray(part.output.places)
+                          ? part.output.places
+                          : part.output;
+                        const summary = part.output.combinedSummary;
+                        return (
+                          <div
+                            key={`${message.id}-getDoctor-${index}`}
+                            className="space-y-4"
+                          >
+                            <DoctorCard
+                              places={places}
+                              doctorType={part.input.doctorType}
+                              location={part.input.location}
                             />
-                          )}
-                        </div>
-                      );
+                            {summary && (
+                              <SummaryCard
+                                summary={summary}
+                                itemCount={places.length}
+                                type="doctor"
+                              />
+                            )}
+                          </div>
+                        );
+                      }
+                      case "output-error":
+                        return (
+                          <ErrorCard
+                            key={`${message.id}-getDoctor-${index}`}
+                            message={part.errorText}
+                          />
+                        );
+                      default:
+                        return null;
                     }
-                    case "output-error":
-                      return (
-                        <ErrorCard
-                          key={`${message.id}-getDoctor-${index}`}
-                          message={part.errorText}
-                        />
-                      );
-                    default:
-                      return null;
-                  }
 
-                default:
-                  return null;
-              }
-            })
+                  default:
+                    return null;
+                }
+              })
             : typeof message.content === "string" && (
-              <p className="whitespace-pre-wrap text-[13px] leading-relaxed font-medium">
-                {message.content}
-              </p>
-            )}
+                <p className="text-sm sm:text-base leading-relaxed font-normal whitespace-pre-wrap break-words">
+                  {message.content}
+                </p>
+              )}
         </div>
       </div>
     </motion.div>
@@ -308,10 +304,10 @@ export default function ChatUi() {
       <motion.button
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        whileHover={{ scale: 1.1, rotate: 5 }}
+        whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-8 right-8 w-16 h-16 bg-black border border-[#00ff87]/40 text-[#00ff87] rounded-2xl shadow-[0_0_20px_rgba(0,255,135,0.2)] hover:shadow-[0_0_30px_rgba(0,255,135,0.4)] hover:border-[#00ff87] flex items-center justify-center z-50 backdrop-blur-xl group transition-all duration-300"
+        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 lg:bottom-8 lg:right-8 w-14 sm:w-16 h-14 sm:h-16 bg-gradient-to-br from-[#00ff87]/20 to-[#00ff87]/10 border border-[#00ff87]/50 text-[#00ff87] rounded-full hover:from-[#00ff87]/30 hover:to-[#00ff87]/20 hover:border-[#00ff87] shadow-lg hover:shadow-xl shadow-[#00ff87]/20 hover:shadow-[#00ff87]/40 flex items-center justify-center z-50 backdrop-blur-md transition-all duration-300"
       >
         <AnimatePresence mode="wait">
           {isOpen ? (
@@ -350,27 +346,33 @@ export default function ChatUi() {
             />
 
             <motion.div
-              initial={{ opacity: 0, y: 100, scale: 0.9 }}
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 100, scale: 0.9 }}
-              className="fixed inset-0 flex items-center justify-center z-50 p-4 md:p-8"
+              exit={{ opacity: 0, y: 20, scale: 0.95 }}
+              className="fixed inset-0 md:inset-auto md:bottom-32 md:right-8 z-50 flex items-center justify-center md:items-end md:justify-end p-3 sm:p-4 md:p-0"
             >
-              <div className="w-full h-full max-w-4xl max-h-[800px] bg-black border border-white/10 rounded-3xl shadow-[0_0_50px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden relative">
+              <div className="w-full h-full md:h-[650px] md:w-[550px] bg-gradient-to-br from-slate-900 via-black to-slate-900 border border-[#00ff87]/20 rounded-2xl md:rounded-2xl shadow-2xl shadow-[#00ff87]/10 flex flex-col overflow-hidden relative">
                 {/* Subtle Grid Background */}
                 <div className="absolute inset-0 grid-bg opacity-10 pointer-events-none" />
 
                 {/* Header */}
-                <div className="bg-white/3 border-b border-white/10 p-6 flex items-center justify-between shrink-0 relative z-10">
-                  <div className="flex items-center gap-5">
-                    <div className="w-14 h-14 bg-[#00ff87]/10 border border-[#00ff87]/30 rounded-2xl flex items-center justify-center shadow-[0_0_15px_rgba(0,255,135,0.1)]">
-                      <IoChatbubbles size={28} className="text-[#00ff87]" />
+                <div className="bg-gradient-to-r from-slate-800 to-slate-900 border-b border-[#00ff87]/20 p-3 sm:p-4 flex items-center justify-between shrink-0 relative z-10">
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-[#00ff87]/30 to-[#00ff87]/10 border border-[#00ff87]/40 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg shadow-[#00ff87]/20">
+                      <IoChatbubbles
+                        size={20}
+                        className="sm:size-6 text-[#00ff87]"
+                      />
                     </div>
                     <div>
-                      <h3 className="font-black text-xl text-white tracking-tight">MedScanAI <span className="text-[#00ff87]">ASSISTANT</span></h3>
-                      <div className="flex items-center gap-2 mt-1">
-                        <span className="w-2 h-2 rounded-full bg-[#00ff87] neon-pulse" />
-                        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#00ff87]/70">
-                          {((status as any) === "idle" || (status as any) === "ready")
+                      <h3 className="font-bold text-sm sm:text-base text-white tracking-tight">
+                        MedScan<span className="text-[#00ff87]">AI</span>
+                      </h3>
+                      <div className="flex items-center gap-1.5 mt-0.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#00ff87] animate-pulse" />
+                        <p className="text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-[#00ff87]/80">
+                          {(status as any) === "idle" ||
+                          (status as any) === "ready"
                             ? "Core Online"
                             : "Processing Neural Waves..."}
                         </p>
@@ -379,40 +381,45 @@ export default function ChatUi() {
                   </div>
 
                   <motion.button
-                    whileHover={{ scale: 1.1, rotate: 90 }}
-                    whileTap={{ scale: 0.9 }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     onClick={() => setIsOpen(false)}
-                    className="w-10 h-10 flex items-center justify-center bg-white/5 hover:bg-red-500/10 hover:text-red-500 rounded-xl border border-white/10 transition-all"
+                    className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center bg-slate-700/50 hover:bg-red-500/20 hover:text-red-400 text-gray-300 rounded-lg border border-slate-600/50 hover:border-red-500/40 transition-all"
                   >
-                    <IoClose size={24} />
+                    <IoClose size={20} />
                   </motion.button>
                 </div>
 
                 {/* Messages Area */}
-                <div className="flex-1 overflow-y-auto p-6 md:p-10 space-y-8 relative z-10 scrollbar-hide">
+                <div className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 space-y-3 sm:space-y-4 relative z-10 scrollbar-hide">
                   {messages.length === 0 ? (
-                    <div className="flex flex-col items-center justify-center h-full text-center space-y-8">
+                    <div className="flex flex-col items-center justify-center h-full text-center space-y-6 sm:space-y-8">
                       <motion.div
                         animate={{
-                          boxShadow: ['0 0 20px rgba(0,255,135,0.1)', '0 0 60px rgba(0,255,135,0.3)', '0 0 20px rgba(0,255,135,0.1)'],
-                          scale: [1, 1.05, 1]
+                          scale: [1, 1.02, 1],
                         }}
-                        transition={{ duration: 4, repeat: Infinity }}
-                        className="w-24 h-24 bg-[#00ff87]/5 border border-[#00ff87]/20 rounded-3xl flex items-center justify-center"
+                        transition={{ duration: 3, repeat: Infinity }}
+                        className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-[#00ff87]/20 to-[#00ff87]/5 border border-[#00ff87]/30 rounded-2xl flex items-center justify-center"
                       >
-                        <IoChatbubbles size={48} className="text-[#00ff87]" />
+                        <IoChatbubbles
+                          size={32}
+                          className="sm:size-10 text-[#00ff87]"
+                        />
                       </motion.div>
                       <div>
-                        <h3 className="text-3xl font-black text-white mb-4 uppercase tracking-tighter">
-                          Initialize Protocol
+                        <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 uppercase tracking-tight">
+                          Start Conversation
                         </h3>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-2xl mx-auto">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 max-w-sm sm:max-w-md mx-auto">
                           {[
                             "Analyze scan results",
                             "Symptom verification",
-                            "Medical specialist targeting"
+                            "Medical specialist targeting",
                           ].map((text, i) => (
-                            <div key={i} className="px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-[11px] font-bold text-gray-400 uppercase tracking-widest hover:border-[#00ff87]/40 hover:text-white transition-all cursor-pointer">
+                            <div
+                              key={i}
+                              className="px-2 sm:px-3 py-2 sm:py-2.5 bg-slate-800/50 border border-slate-700/50 hover:border-[#00ff87]/40 rounded-lg text-[10px] sm:text-xs font-medium text-gray-300 hover:text-[#00ff87] uppercase tracking-wide transition-all cursor-pointer"
+                            >
                               {text}
                             </div>
                           ))}
@@ -431,16 +438,16 @@ export default function ChatUi() {
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="flex justify-start px-2"
+                      className="flex justify-start px-2 sm:px-4"
                     >
-                      <div className="bg-white/5 border border-white/10 px-5 py-4 rounded-2xl rounded-bl-none flex items-center gap-4 backdrop-blur-md">
-                        <div className="animate-spin rounded-full h-4 w-4 border-2 border-[#00ff87] border-t-transparent" />
-                        <span className="text-[10px] text-[#00ff87] font-black uppercase tracking-[0.2em] animate-pulse">
-                          Decoding Neural Response...
+                      <div className="bg-slate-800/50 border border-slate-700/50 px-4 py-3 sm:px-5 sm:py-4 rounded-lg rounded-bl-none flex items-center gap-3 sm:gap-4">
+                        <div className="animate-spin rounded-full h-3 w-3 sm:h-4 sm:w-4 border-2 border-[#00ff87] border-t-transparent" />
+                        <span className="text-xs text-[#00ff87] font-semibold">
+                          Processing...
                         </span>
                         <button
                           onClick={stop}
-                          className="ml-4 px-3 py-1 bg-red-500/10 border border-red-500/30 text-red-500 rounded-lg text-[9px] font-black uppercase tracking-widest hover:bg-red-500 hover:text-white transition-all"
+                          className="ml-2 sm:ml-4 px-2 sm:px-3 py-1 bg-red-500/15 border border-red-500/30 text-red-400 rounded-lg text-[10px] sm:text-xs font-semibold hover:bg-red-500/25 transition-all"
                         >
                           Abort
                         </button>
@@ -452,43 +459,48 @@ export default function ChatUi() {
                 </div>
 
                 {/* Input Area */}
-                <div className="bg-white/2 border-t border-white/10 p-6 md:p-8 space-y-6 shrink-0 relative z-10">
+                <div className="bg-gradient-to-r from-slate-900 to-slate-800 border-t border-[#00ff87]/20 p-3 sm:p-4 space-y-3 sm:space-y-4 shrink-0 relative z-10">
                   {uploadError && (
                     <motion.div
                       initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      className="p-4 bg-red-500/10 border border-red-500/30 rounded-xl"
+                      animate={{ opacity: 1, height: "auto" }}
+                      className="p-2 sm:p-3 bg-red-500/10 border border-red-500/30 rounded-lg"
                     >
-                      <p className="text-[10px] text-red-500 font-black uppercase tracking-widest flex items-center gap-2">
-                        <span>⚠️</span> Protocol Violation: {uploadError}
+                      <p className="text-[9px] sm:text-xs text-red-400 font-semibold uppercase tracking-wide flex items-center gap-2">
+                        <span>⚠️</span>
+                        {uploadError}
                       </p>
                     </motion.div>
                   )}
 
                   {uploadedImages.length > 0 && (
-                    <div className="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-hide">
+                    <div className="flex items-center gap-2 overflow-x-auto pb-2">
                       {uploadedImages.map((img, idx) => (
                         <div
                           key={img}
-                          className="relative flex-shrink-0 w-16 h-16 rounded-xl border border-[#00ff87]/30 overflow-hidden group"
+                          className="relative shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-lg border border-[#00ff87]/30 overflow-hidden group"
                         >
-                          <img src={img} className="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity" alt="upload" />
+                          <img
+                            src={img}
+                            className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity"
+                            alt="upload"
+                          />
                           <button
                             type="button"
                             onClick={() => removeImage(idx)}
-                            className="absolute inset-0 flex items-center justify-center bg-red-600/60 opacity-0 group-hover:opacity-100 transition-opacity"
+                            className="absolute inset-0 flex items-center justify-center bg-red-600/70 opacity-0 group-hover:opacity-100 transition-opacity"
                           >
-                            <X className="w-5 h-5 text-white" />
+                            <X className="w-4 h-4 text-white" />
                           </button>
                         </div>
                       ))}
-                      <div className="text-[10px] font-black text-[#00ff87] uppercase tracking-widest mr-4">
-                        Data Up-links Active [{uploadedImages.length}]
-                      </div>
+                      <span className="text-xs text-[#00ff87] font-semibold whitespace-nowrap">
+                        {uploadedImages.length} uploaded
+                      </span>
                     </div>
                   )}
 
-                  <form className="flex gap-4" onSubmit={onSubmit}>
+                  <form className="flex gap-2" onSubmit={onSubmit}>
                     <input
                       type="file"
                       ref={fileInputRef}
@@ -497,44 +509,46 @@ export default function ChatUi() {
                       multiple
                       disabled={isUploading || status !== "ready"}
                       className="hidden"
+                      title="Upload image"
                     />
 
                     <button
                       type="button"
                       onClick={() => fileInputRef.current?.click()}
                       disabled={isUploading || status !== "ready" || isLoading}
-                      className="flex-shrink-0 w-14 h-14 bg-white/5 border border-white/10 hover:border-[#00ff87]/50 text-gray-400 hover:text-[#00ff87] rounded-2xl flex items-center justify-center transition-all disabled:opacity-30 disabled:cursor-not-allowed group"
+                      className="shrink-0 w-10 h-10 sm:w-11 sm:h-11 bg-slate-700/50 border border-slate-600/50 hover:border-[#00ff87]/40 text-gray-300 hover:text-[#00ff87] rounded-lg flex items-center justify-center transition-all disabled:opacity-40 disabled:cursor-not-allowed group"
+                      title="Upload image"
                     >
-                      <Upload className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                      <Upload className="w-5 h-5" />
                     </button>
 
-                    <div className="flex-1 relative group">
-                      <input
-                        type="text"
-                        value={input}
-                        onChange={(e) => setInput(e.target.value)}
-                        disabled={isLoading}
-                        placeholder="Inquire Neural Core..."
-                        className="w-full h-14 px-6 rounded-2xl border border-white/10 bg-white/5 text-white placeholder-gray-500 focus:outline-none focus:border-[#00ff87]/50 focus:bg-[#00ff87]/5 transition-all text-sm font-medium"
-                      />
-                      <div className="absolute inset-0 rounded-2xl bg-[#00ff87]/5 opacity-0 group-focus-within:opacity-100 pointer-events-none transition-opacity" />
-                    </div>
+                    <input
+                      type="text"
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      disabled={isLoading}
+                      placeholder="Ask me..."
+                      className="flex-1 h-10 sm:h-11 px-3 sm:px-4 rounded-lg border border-slate-600/50 bg-slate-800/50 text-white placeholder-gray-500 focus:outline-none focus:border-[#00ff87]/50 focus:ring-1 focus:ring-[#00ff87]/30 transition-all text-sm"
+                    />
 
                     <motion.button
-                      whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(0,255,135,0.4)' }}
+                      whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       type="submit"
                       disabled={sendButtonDisabled}
-                      className="w-14 h-14 bg-[#00ff87] text-black rounded-2xl flex items-center justify-center disabled:opacity-20 disabled:grayscale transition-all shrink-0"
+                      className="shrink-0 w-10 h-10 sm:w-11 sm:h-11 bg-gradient-to-br from-[#00ff87] to-[#00cc6f] text-black hover:from-[#1eff93] hover:to-[#00ff87] rounded-lg flex items-center justify-center disabled:opacity-40 disabled:grayscale transition-all shadow-lg hover:shadow-xl shadow-[#00ff87]/30"
+                      title="Send message"
                     >
-                      <IoSend size={24} />
+                      <IoSend size={20} />
                     </motion.button>
                   </form>
 
-                  <div className="flex items-center justify-center gap-6 opacity-30">
-                    <div className="h-px bg-white/20 flex-1" />
-                    <span className="text-[9px] font-black uppercase tracking-[0.4em] text-white">AI Diagnostic Module V2.0</span>
-                    <div className="h-px bg-white/20 flex-1" />
+                  <div className="flex items-center justify-center gap-3 opacity-50">
+                    <div className="h-px bg-slate-600/50 flex-1" />
+                    <span className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                      MedScan AI v1.0
+                    </span>
+                    <div className="h-px bg-slate-600/50 flex-1" />
                   </div>
                 </div>
               </div>

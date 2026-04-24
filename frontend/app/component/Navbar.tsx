@@ -59,7 +59,7 @@ const Navbar = () => {
     return activeSection === href.replace("#", "");
   };
 
-  const currentTheme = mounted ? resolvedTheme : "light";
+  const currentTheme = mounted ? resolvedTheme : "dark";
 
   const navLinks = [
     { name: "Home", href: "/", icon: <IoHomeOutline size={18} /> },

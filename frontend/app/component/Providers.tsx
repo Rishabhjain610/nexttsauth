@@ -11,7 +11,7 @@ const Providers: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     <Provider store={store}>
       <AuthContext>
         <UserDataContext />
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           {children}
         </ThemeProvider>
       </AuthContext>
